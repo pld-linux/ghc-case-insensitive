@@ -6,51 +6,36 @@
 Summary:	Case insensitive string comparison
 Summary(pl.UTF-8):	Porównywanie łańcuchów nie wrażliwe na wielkość liter
 Name:		ghc-%{pkgname}
-Version:	1.1.0.2
+Version:	1.2.1.0
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/case-insensitive
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	d9a65f8b88a92741f4574e2f7d636cfa
+# Source0-md5:	c501248804f3aaf4c56e2f16d03c3969
 URL:		http://hackage.haskell.org/package/case-insensitive
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 3
-BuildRequires:	ghc-base < 4.8
 BuildRequires:	ghc-bytestring >= 0.9
-BuildRequires:	ghc-bytestring < 0.11
 BuildRequires:	ghc-deepseq >= 1.1
-BuildRequires:	ghc-deepseq < 1.4
 BuildRequires:	ghc-hashable >= 1.0
-BuildRequires:	ghc-hashable < 1.3
 BuildRequires:	ghc-text >= 0.3
-BuildRequires:	ghc-text < 1.1
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-base-prof >= 3
-BuildRequires:	ghc-base-prof < 4.8
 BuildRequires:	ghc-bytestring-prof >= 0.9
-BuildRequires:	ghc-bytestring-prof < 0.11
 BuildRequires:	ghc-deepseq-prof >= 1.1
-BuildRequires:	ghc-deepseq-prof < 1.4
 BuildRequires:	ghc-hashable-prof >= 1.0
-BuildRequires:	ghc-hashable-prof < 1.3
 BuildRequires:	ghc-text-prof >= 0.3
-BuildRequires:	ghc-text-prof < 1.1
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
 %requires_eq	ghc
 Requires:	ghc-base >= 3
-Requires:	ghc-base < 4.8
 Requires:	ghc-bytestring >= 0.9
-Requires:	ghc-bytestring < 0.11
 Requires:	ghc-deepseq >= 1.1
-Requires:	ghc-deepseq < 1.4
 Requires:	ghc-hashable >= 1.0
-Requires:	ghc-hashable < 1.3
 Requires:	ghc-text >= 0.3
-Requires:	ghc-text < 1.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -77,15 +62,10 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 3
-Requires:	ghc-base-prof < 4.8
 Requires:	ghc-bytestring-prof >= 0.9
-Requires:	ghc-bytestring-prof < 0.11
 Requires:	ghc-deepseq-prof >= 1.1
-Requires:	ghc-deepseq-prof < 1.4
 Requires:	ghc-hashable-prof >= 1.0
-Requires:	ghc-hashable-prof < 1.3
 Requires:	ghc-text-prof >= 0.3
-Requires:	ghc-text-prof < 1.1
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when GHC's
@@ -148,18 +128,21 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE README.markdown
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HScase-insensitive-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}_p.a
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive.p_hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/CaseInsensitive/*.p_hi
 %endif
 
