@@ -7,7 +7,7 @@ Summary:	Case insensitive string comparison
 Summary(pl.UTF-8):	Porównywanie łańcuchów nie wrażliwe na wielkość liter
 Name:		ghc-%{pkgname}
 Version:	1.2.1.0
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/case-insensitive
