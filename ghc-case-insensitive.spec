@@ -14,8 +14,10 @@ Group:		Development/Languages
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
 # Source0-md5:	c501248804f3aaf4c56e2f16d03c3969
 URL:		http://hackage.haskell.org/package/case-insensitive
-BuildRequires:	ghc >= 6.12.3
+# with ghc < 8.0 also ghc-semigroups >=0.18
+BuildRequires:	ghc >= 8.0
 BuildRequires:	ghc-base >= 3
+BuildRequires:	ghc-base < 5
 BuildRequires:	ghc-bytestring >= 0.9
 BuildRequires:	ghc-deepseq >= 1.1
 BuildRequires:	ghc-hashable >= 1.0
@@ -98,6 +100,7 @@ runhaskell Setup.lhs configure -v2 \
 	--docdir=%{_docdir}/%{name}-%{version}
 
 runhaskell Setup.lhs build
+
 runhaskell Setup.lhs haddock --executables
 
 %install
@@ -125,10 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README.markdown
+%doc CHANGELOG LICENSE README.markdown
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*.so
+%attr(755,root,root) %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*.so
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*.a
 %exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHScase-insensitive-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data
